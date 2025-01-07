@@ -1,6 +1,9 @@
 
 using ASPNET_AUTH.Models;
 using ASPNET_AUTH.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ASPNET_AUTH
 {
@@ -19,6 +22,27 @@ namespace ASPNET_AUTH
             builder.Services.AddScoped<EventsModel>();
             builder.Services.AddScoped<EventsService>();
 
+            var key = Encoding.UTF8.GetBytes("your-very-secure-secret-which-must-be-quite-long-see-below");
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "your-name",
+                    ValidateAudience = true,
+                    ValidAudience = "your-app-name",
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,6 +54,7 @@ namespace ASPNET_AUTH
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

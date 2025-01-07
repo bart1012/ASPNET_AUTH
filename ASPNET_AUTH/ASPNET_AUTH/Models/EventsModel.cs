@@ -19,5 +19,14 @@ namespace ASPNET_AUTH.Models
             var list = GetAllEvents();
             return list.FirstOrDefault(x => x.Id == id);
         }
+
+        public bool AddEvent(Event newEvent)
+        {
+            var allEvents = GetAllEvents();
+            if (allEvents.Any(x => x.Id == newEvent.Id)) return false;
+
+            allEvents.Add(newEvent);
+            return true;
+        }
     }
 }

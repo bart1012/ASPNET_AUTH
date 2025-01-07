@@ -20,5 +20,10 @@ namespace ASPNET_AUTH.Services
         {
             return _eventsModel.GetEventByID(id);
         }
+
+        public bool PostEvent(Event newEvent)
+        {
+            return _eventsModel.AddEvent(newEvent);
+        }
     }
 }

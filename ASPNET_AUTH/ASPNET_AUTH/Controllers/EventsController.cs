@@ -29,5 +29,13 @@ namespace ASPNET_AUTH.Controllers
             if (eventById is null) return BadRequest("Event not found.");
             else return Ok(eventById);
         }
+
+        [HttpPost]
+        public IActionResult PostEvent(Event newEvent)
+        {
+            var result = _eventsService.PostEvent(newEvent);
+            if (result) return Ok(newEvent);
+            else return BadRequest("Id was invalid. Try again.");
+        }
     }
 }
