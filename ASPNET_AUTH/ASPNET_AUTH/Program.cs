@@ -21,6 +21,8 @@ namespace ASPNET_AUTH
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<EventsModel>();
             builder.Services.AddScoped<EventsService>();
+            builder.Services.AddScoped<AttendeesModel>();
+            builder.Services.AddScoped<AttendeesService>();
 
             var key = Encoding.UTF8.GetBytes("your-very-secure-secret-which-must-be-quite-long-see-below");
 
