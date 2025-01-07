@@ -2,6 +2,6 @@
 {
     public class Speaker
     {
-        public int UserId { get; set; }
+        public int EventId {  get; set; }
     }
 }
