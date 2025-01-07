@@ -10,6 +10,11 @@ namespace ASPNET_AUTH.Services
             _model = model;
         }
 
+        public List<Attendee> GetAllAttendees()
+        {
+            return _model.GetAllAttendees();
+        }
+
         public List<Attendee> GetAttendeesAtEvent(int eventId)
         {
             return _model.GetAttendeesByEventId(eventId);

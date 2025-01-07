@@ -43,9 +43,13 @@ namespace ASPNET_AUTH
                     ValidAudience = "your-app-name",
                     ValidateLifetime = false,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    RoleClaimType = "roles"
                 };
+                options.MapInboundClaims = false;
             });
+
+
 
             var app = builder.Build();
 

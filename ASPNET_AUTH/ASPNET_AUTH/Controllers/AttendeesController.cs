@@ -17,6 +17,20 @@ namespace ASPNET_AUTH.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        public IActionResult GetAllAttendees()
+        {
+
+            List<Attendee> result = _service.GetAllAttendees();
+
+            if (result.Count == 0) { return NoContent(); }
+            else return Ok(result);
+
+
+
+        }
+
+        [HttpGet]
         [Route("/Event/{id}")]
         public IActionResult GetAttendeesAtEvent(int id)
         {
@@ -40,6 +54,25 @@ namespace ASPNET_AUTH.Controllers
             else
             {
                 var result = _service.GetAttendeesByUserId(id);
+                if (result is null) { return NoContent(); }
+                else return Ok(result);
+            }
+        }
+
+        [HttpGet]
+        [Route("ViewAttendance/{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetUserAttendanceByID(int id)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(accessToken) as JwtSecurityToken;
+            int userId = int.Parse(jsonToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value);
+
+            if (userId != id) return Unauthorized();
+            else
+            {
+                var result = _service.GetAttendeesByAttendeeId(id);
                 if (result is null) { return NoContent(); }
                 else return Ok(result);
             }
