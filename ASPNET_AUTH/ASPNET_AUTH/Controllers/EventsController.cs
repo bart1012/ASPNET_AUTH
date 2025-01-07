@@ -1,4 +1,5 @@
 ﻿using ASPNET_AUTH.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_AUTH.Controllers
@@ -31,6 +32,7 @@ namespace ASPNET_AUTH.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult PostEvent(Event newEvent)
         {
             var result = _eventsService.PostEvent(newEvent);
