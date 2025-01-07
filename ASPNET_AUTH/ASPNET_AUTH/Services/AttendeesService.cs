@@ -14,5 +14,10 @@ namespace ASPNET_AUTH.Services
         {
             return _model.GetAttendeesByEventId(eventId);
         }
+
+        public bool AddAttendee(Attendee a)
+        {
+            return _model.AddAttendee(a);
+        }
     }
 }

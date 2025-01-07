@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace ASPNET_AUTH.Models
 {
@@ -28,6 +29,21 @@ namespace ASPNET_AUTH.Models
 
             return result;
                 
+        }
+
+        public bool AddAttendee(Attendee a)
+        {
+            EventsModel eventsModel = new EventsModel();
+
+            var allAttendees = GetAllAttendees();
+            var allEvents = eventsModel.GetAllEvents();
+
+            if (!allEvents.Any(e => e.Id == a.EventId)) return false;
+
+            allAttendees.Add(a);
+            File.WriteAllText("Data/attendees.json", JsonSerializer.Serialize<List<Attendee>>(allAttendees));
+            return true;
+
         }
     }
 }
