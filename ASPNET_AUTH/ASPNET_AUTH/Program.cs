@@ -23,6 +23,8 @@ namespace ASPNET_AUTH
             builder.Services.AddScoped<EventsService>();
             builder.Services.AddScoped<AttendeesModel>();
             builder.Services.AddScoped<AttendeesService>();
+            builder.Services.AddScoped<SpeakersModel>();
+            builder.Services.AddScoped<SpeakersService>();
 
             var key = Encoding.UTF8.GetBytes("your-very-secure-secret-which-must-be-quite-long-see-below");
 
