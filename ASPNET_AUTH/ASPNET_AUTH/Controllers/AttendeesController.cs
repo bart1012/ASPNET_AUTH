@@ -1,9 +1,8 @@
 ﻿using ASPNET_AUTH.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace ASPNET_AUTH.Controllers
 {
@@ -18,7 +17,7 @@ namespace ASPNET_AUTH.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("/Event/{id}")]
         public IActionResult GetAttendeesAtEvent(int id)
         {
             List<Attendee> result = _service.GetAttendeesAtEvent(id);
@@ -27,19 +26,37 @@ namespace ASPNET_AUTH.Controllers
             else return Ok(result);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetAllAttendeesByID(int id)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(accessToken) as JwtSecurityToken;
+            int userId = int.Parse(jsonToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value);
+
+            if (userId != id) return Unauthorized();
+            else
+            {
+                var result = _service.GetAttendeesByUserId(id);
+                if (result is null) { return NoContent(); }
+                else return Ok(result);
+            }
+        }
+
         [HttpPost]
         [Authorize]
-        public IActionResult PostAttendee(Attendee input)
+        public async Task<IActionResult> PostAttendeeAsync(int a)
         {
-
-            string jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMiIsIm5hbWUiOiJUZXN0IFVzZXIiLCJpYXQiOjE3NjcxOTgwNjcsImV4cCI6MTgwNDA2NzIwMCwiaXNzIjoieW91ci1uYW1lIiwiYXVkIjoieW91ci1hcHAtbmFtZSIsInJvbGVzIjpbXX0.EM4AvEBtWh0E881ioGbnkeaWaCo3D7RAHsHWGptnw-g";
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
             var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(jwtToken) as JwtSecurityToken;
+            var jsonToken = handler.ReadToken(accessToken) as JwtSecurityToken;
             string userId = jsonToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
 
             Attendee newAttendee = new Attendee()
             {
-                EventId = input.EventId,
+                EventId = a,
                 UserId = int.Parse(userId)
             };
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace ASPNET_AUTH.Models
 {
@@ -28,7 +27,37 @@ namespace ASPNET_AUTH.Models
             }
 
             return result;
-                
+
+        }
+
+        public List<Attendee> GetAttendeesByUserId(int id)
+        {
+            List<Attendee> result = new List<Attendee>();
+            var allAttendees = GetAllAttendees();
+            foreach (var a in allAttendees)
+            {
+                if (a.UserId == id)
+                {
+                    result.Add(a);
+                }
+            }
+
+            return result;
+
+        }
+
+        public Attendee? GetAttendeesByAttendeeId(int id)
+        {
+            var allAttendees = GetAllAttendees();
+            foreach (var a in allAttendees)
+            {
+                if (a.Id == id)
+                {
+                    return a;
+                }
+            }
+
+            return null;
         }
 
         public bool AddAttendee(Attendee a)
