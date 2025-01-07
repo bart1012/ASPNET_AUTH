@@ -1,4 +1,7 @@
 
+using ASPNET_AUTH.Models;
+using ASPNET_AUTH.Services;
+
 namespace ASPNET_AUTH
 {
     public class Program
@@ -13,6 +16,8 @@ namespace ASPNET_AUTH
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<EventsModel>();
+            builder.Services.AddScoped<EventsService>();
 
             var app = builder.Build();
 
