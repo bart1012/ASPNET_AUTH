@@ -32,5 +32,16 @@ namespace ASPNET_AUTH.Controllers
             if (result) return Ok(speaker);
             else return BadRequest();
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteSpeaker(int id)
+        {
+            var result = _service.RemoveSpeaker(id);
+
+            if (!result) return NotFound();
+            else return NoContent();
+        }
     }
 }

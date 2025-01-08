@@ -48,5 +48,18 @@ namespace ASPNET_AUTH.Models
             File.WriteAllText("Data/speakers.json", JsonSerializer.Serialize<List<Speaker>>(allSpeakers));
             return true;
         }
+
+        public bool RemoveSpeaker(int id)
+        {
+            var allSpeakers = GetAllSpeakers();
+
+            Speaker? speakerToRemove = allSpeakers.FirstOrDefault(s => s.Id == id);
+            if (speakerToRemove == null) return false;
+
+            allSpeakers.Remove(speakerToRemove);
+
+            File.WriteAllText("Data/speakers.json", JsonSerializer.Serialize<List<Speaker>>(allSpeakers));
+            return true;
+        }
     }
 }

@@ -19,5 +19,10 @@ namespace ASPNET_AUTH.Services
         {
             return _Model.AddSpeaker(speaker);
         }
+
+        public bool RemoveSpeaker(int speakerId)
+        {
+            return _Model.RemoveSpeaker(speakerId);
+        }
     }
 }
