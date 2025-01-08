@@ -1,9 +1,11 @@
 ﻿[
   {
+    "id":  1,
     "name": "Jeff",
     "eventid": 1
   },
   {
+    "id":  2,
     "name": "Samantha",
     "eventid": 2
   }
