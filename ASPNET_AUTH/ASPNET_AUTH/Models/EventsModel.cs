@@ -33,8 +33,6 @@ namespace ASPNET_AUTH.Models
 
             if (newEvent.MaximumCapacity < 2) return false;
 
-            newEvent.CurrentAttendance = 0;
-
             allEvents.Add(newEvent);
 
             File.WriteAllText("Data/events.json", JsonSerializer.Serialize(allEvents));

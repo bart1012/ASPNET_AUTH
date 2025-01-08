@@ -79,7 +79,7 @@ namespace ASPNET_AUTH.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostAttendeeAsync(int a)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");

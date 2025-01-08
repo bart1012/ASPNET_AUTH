@@ -35,6 +35,7 @@ namespace ASPNET_AUTH.Controllers
         [Authorize]
         public IActionResult PostEvent(Event newEvent)
         {
+            newEvent.CurrentAttendance = 0;
             var result = _eventsService.PostEvent(newEvent);
             if (result) return Ok(newEvent);
             else return BadRequest("Id was invalid. Try again.");

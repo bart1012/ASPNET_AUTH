@@ -1,1 +1,22 @@
-[{"Id":1,"Title":"Code \u0026 Coffee: Java Jams 2027","Date":"2027-01-15T00:00:00","Venue":"Tech Space, London","Description":"Do you like caffeine? Do you like code? You\u0027re in the right place.","Category":"Technology","MaximumCapacity":10,"CurrentAttendance":6},{"Id":2,"Title":"Pixel Perfect: Digital Design Expo","Date":"2027-02-10T00:00:00","Venue":"Creative Quarter, Manchester","Description":"Digital design at the cutting edge.","Category":"Design","MaximumCapacity":10,"CurrentAttendance":0},{"Id":3,"Title":"Plant-Powered Planet","Date":"2027-03-12T00:00:00","Venue":"Sustainability Hub, Brighton","Description":"Let\u0027s explore sustainable living through plant-based innovation and eco-friendly practices.","Category":"Sustainability","MaximumCapacity":10,"CurrentAttendance":0}]
+[
+  {
+    "Id": 1,
+    "Title": "Code \u0026 Coffee: Java Jams 2027",
+    "Date": "2027-01-15T00:00:00",
+    "Venue": "Tech Space, London",
+    "Description": "Do you like caffeine? Do you like code? You\u0027re in the right place.",
+    "Category": "Technology",
+    "MaximumCapacity": 10,
+    "CurrentAttendance": 7
+  },
+  {
+    "Id": 2,
+    "Title": "Pixel Perfect: Digital Design Expo",
+    "Date": "2027-02-10T00:00:00",
+    "Venue": "Creative Quarter, Manchester",
+    "Description": "Digital design at the cutting edge.",
+    "Category": "Design",
+    "MaximumCapacity": 10,
+    "CurrentAttendance": 1
+  }
+]

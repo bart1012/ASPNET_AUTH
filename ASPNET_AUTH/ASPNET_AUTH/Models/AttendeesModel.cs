@@ -67,11 +67,24 @@ namespace ASPNET_AUTH.Models
             var allAttendees = GetAllAttendees();
             var allEvents = eventsModel.GetAllEvents();
 
-            if (!allEvents.Any(e => e.Id == a.EventId)) return false;
+            Event? attendingEvent = allEvents.FirstOrDefault(e => e.Id == a.EventId);
+            if (attendingEvent == null) return false;
+
+            if (attendingEvent.CurrentAttendance + 1 > attendingEvent.MaximumCapacity) return false;
+
+            a.Id = allAttendees.Count + 1;
+            attendingEvent.CurrentAttendance++;
+            bool updateAttempt = eventsModel.UpdateEvent(attendingEvent);
+
+            if (!updateAttempt) return false;
 
             allAttendees.Add(a);
             File.WriteAllText("Data/attendees.json", JsonSerializer.Serialize<List<Attendee>>(allAttendees));
             return true;
         }
+
+        
+
+
     }
 }
