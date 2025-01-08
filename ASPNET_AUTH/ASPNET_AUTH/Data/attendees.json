@@ -7,7 +7,7 @@
   {
     "Id" :  2,
     "UserId": 2,
-    "EventId": 2
+    "EventId": 1
   },
   {
     "Id" :  3,
@@ -17,16 +17,16 @@
   {
     "Id": 4,
     "UserId": 24,
-    "EventId": 2
+    "EventId": 1
   },
   {
     "Id": 5,
-    "UserId": 24,
-    "EventId": 3
+    "UserId": 21,
+    "EventId": 1
   },
   {
     "Id": 6,
-    "UserId": 24,
-    "EventId": 8
+    "UserId": 56,
+    "EventId": 1
   }
 ]

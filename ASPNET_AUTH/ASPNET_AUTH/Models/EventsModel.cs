@@ -25,7 +25,19 @@ namespace ASPNET_AUTH.Models
             var allEvents = GetAllEvents();
             if (allEvents.Any(x => x.Id == newEvent.Id)) return false;
 
+            if (String.IsNullOrEmpty(newEvent.Title)) return false;
+
+            if (newEvent.Date <  DateTime.Now) return false;
+
+            if (String.IsNullOrEmpty(newEvent.Venue)) return false;
+
+            if (newEvent.MaximumCapacity < 2) return false;
+
+            newEvent.CurrentAttendance = 0;
+
             allEvents.Add(newEvent);
+
+            File.WriteAllText("Data/events.json", JsonSerializer.Serialize(allEvents));
             return true;
         }
     }
