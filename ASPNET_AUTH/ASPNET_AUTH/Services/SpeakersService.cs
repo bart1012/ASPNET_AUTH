@@ -14,5 +14,10 @@ namespace ASPNET_AUTH.Services
         {
             return _Model.GetSpeakersByEventId(eventId);
         }
+
+        public bool PostSpeaker(Speaker speaker)
+        {
+            return _Model.AddSpeaker(speaker);
+        }
     }
 }

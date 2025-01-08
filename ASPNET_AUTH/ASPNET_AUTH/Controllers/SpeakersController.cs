@@ -1,4 +1,5 @@
 ﻿using ASPNET_AUTH.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_AUTH.Controllers
@@ -20,6 +21,16 @@ namespace ASPNET_AUTH.Controllers
             var result = _service.GetSpeakersAtEvent(id);
             if (result.Count == 0) return NoContent();
             else return Ok(result);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult PostSpeaker(Speaker speaker)
+        {
+            var result = _service.PostSpeaker(speaker);
+
+            if (result) return Ok(speaker);
+            else return BadRequest();
         }
     }
 }

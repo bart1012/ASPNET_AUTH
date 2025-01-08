@@ -29,5 +29,24 @@ namespace ASPNET_AUTH.Models
             return result;
 
         }
+
+        public bool AddSpeaker(Speaker speaker)
+        {
+            var allSpeakers = GetAllSpeakers();
+
+            if (allSpeakers.Any(s => s.Id == speaker.Id)) return false;
+
+            if (String.IsNullOrEmpty(speaker.Name)) return false;
+
+            EventsModel eventsModel = new EventsModel();
+            var allEvents = eventsModel.GetAllEvents();
+
+            if (!allEvents.Any(e => e.Id == speaker.EventId)) return false;
+
+            allSpeakers.Add(speaker);
+
+            File.WriteAllText("Data/speakers.json", JsonSerializer.Serialize<List<Speaker>>(allSpeakers));
+            return true;
+        }
     }
 }
