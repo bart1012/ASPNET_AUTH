@@ -61,5 +61,30 @@ namespace ASPNET_AUTH.Models
             File.WriteAllText("Data/speakers.json", JsonSerializer.Serialize<List<Speaker>>(allSpeakers));
             return true;
         }
+
+        public bool UpdateSpeaker(Speaker newSpeaker)
+        {
+            var allSpeakers = GetAllSpeakers();
+            Speaker? speakerToUpdate = allSpeakers.FirstOrDefault(s => s.Id == newSpeaker.Id);
+
+            if (speakerToUpdate == null) return false;
+
+            bool removeAttempt = RemoveSpeaker(speakerToUpdate.Id);
+
+            if (!removeAttempt) return false;
+
+            bool addAttempt = AddSpeaker(newSpeaker);
+
+            if (!addAttempt)
+            {
+                AddSpeaker(speakerToUpdate);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace ASPNET_AUTH.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("/events/{id}")]
         public IActionResult GetSpeakersAtEvent(int id)
         {
             var result = _service.GetSpeakersAtEvent(id);
@@ -42,6 +42,16 @@ namespace ASPNET_AUTH.Controllers
 
             if (!result) return NotFound();
             else return NoContent();
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public IActionResult PutSpeaker(Speaker speaker)
+        {
+            bool result = _service.UpdateSpeaker(speaker);
+
+            if (!result) return BadRequest();
+            else return Ok(speaker);
         }
     }
 }
