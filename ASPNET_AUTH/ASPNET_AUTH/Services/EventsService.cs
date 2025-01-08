@@ -25,5 +25,10 @@ namespace ASPNET_AUTH.Services
         {
             return _eventsModel.AddEvent(newEvent);
         }
+
+        public bool DeleteEvent(int id)
+        {
+            return _eventsModel.DeleteEvent(id);
+        }
     }
 }

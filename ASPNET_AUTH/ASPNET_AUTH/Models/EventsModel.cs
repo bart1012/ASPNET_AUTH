@@ -40,5 +40,17 @@ namespace ASPNET_AUTH.Models
             File.WriteAllText("Data/events.json", JsonSerializer.Serialize(allEvents));
             return true;
         }
+
+        public bool DeleteEvent(int id)
+        {
+            var allEvents = GetAllEvents();
+
+            Event? eventToDelete = allEvents.FirstOrDefault(x => x.Id == id);
+            if (eventToDelete is null) return false;
+
+            allEvents.Remove(eventToDelete);
+            File.WriteAllText("Data/events.json", JsonSerializer.Serialize(allEvents));
+            return true;
+        }
     }
 }

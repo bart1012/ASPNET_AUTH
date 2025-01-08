@@ -72,7 +72,6 @@ namespace ASPNET_AUTH.Models
             allAttendees.Add(a);
             File.WriteAllText("Data/attendees.json", JsonSerializer.Serialize<List<Attendee>>(allAttendees));
             return true;
-
         }
     }
 }

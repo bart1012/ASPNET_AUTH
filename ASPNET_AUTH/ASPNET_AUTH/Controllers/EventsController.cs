@@ -39,5 +39,19 @@ namespace ASPNET_AUTH.Controllers
             if (result) return Ok(newEvent);
             else return BadRequest("Id was invalid. Try again.");
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteEvent(int id) 
+        {
+            bool result = _eventsService.DeleteEvent(id);
+
+            if (result) return NoContent();
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
